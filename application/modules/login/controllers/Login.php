@@ -1,11 +1,11 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login  extends MX_Controller
+class Login extends MX_Controller
 {
 
 	private $user_exist = '';
-	private $lang = "";
+	private $lang = '';
 
 	public function __construct()
 	{
@@ -13,89 +13,88 @@ class Login  extends MX_Controller
 		$this->user_exist = FALSE;
 		$this->lang = 'es';
 		$this->load->helper('MY_encrypt_helper');
+		$this->load->library('session');
 		define("TABLE","Alumnos");
 	}
 
 	public function index()
 	{
+
 		$data = array(
+
 						'lang' => $this->lang,
 						'title' => "Acceso Alumnos | ",
 						'reference' => strtoupper(TABLE),
 						'view' => strtolower (TABLE).'_login',
 						'robots' => 'noindex, nofollow',
-						//'js' => $this->load->view('js_module/js_module','',TRUE),
-						//'css' => $this->load->view('css_module/css_module',TRUE),
+						'js' => $this->load->view('js_module/js_module','',TRUE),
+						'css' => $this->load->view('css_module/css_module',TRUE),
 						'lang' => $this->lang,
+						'errors' => FALSE
 
 					);
+
+		if (isset($_POST['submit-login']))
+		{
+				$email = $this->input->post('email');
+				$password = $this->input->post('password');
+			 	$data['errors'] = $this->getAlumno($email,$password);
+		 }
+
 		$this->load->view('layout', $data);
 	}
 
-	public function login()
+	private function getAlumno($email,$password)
 	{
+		//Validamos los datos
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('password', 'Contraseña', 'required|min_length[8]');
+		$this->form_validation->set_error_delimiters('<div style="font-size: 17px;text-align: center;line-height: 1.5em;color:white;">', '</div>');
 
-		if(isset($_POST['submit']))
+		if($this->form_validation->run() == TRUE)
 		{
-			//Validamos los datos
-			$this->form_validation->set_rules('login', 'usuario', 'required');
-			$this->form_validation->set_rules('password', 'Contraseña', 'required|min_length[8]');
-			$this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+			//consultamos en la base de datos si existe el usuario
+			$alumno = $this->doctrine->em->getRepository("Entities\\".TABLE."datos")->findOneBy(["email" => $email]);
 
-
-			if($this->form_validation->run() == TRUE)
+			if ($alumno != null)
 			{
-				//Recuperamos todos los usuarios
-				$users = $this->doctrine->em->getRepository("Entities\\Usuarios")->findAll();
-				//Almacenamos el pass
-				$code = $this->input->post('password');
+				//Recuperamos todos los alumnos
+				$alumnos = $this->doctrine->em->getRepository("Entities\\".TABLE)->findBy(["active" => 1]);
 
-				//Recorremos todos los usuarios buscando una coincidencia
-				foreach ($users as $key => $user)
+				//Recorremos todos los alumnos buscando una coincidencia
+				foreach ($alumnos as $key => $alumno)
 				{
-					//Si el usuario existe entramos y $user_exist almacena el insurancecode
-					if(password_verify($code, $user->getInsurancecode()))
-						$this->user_exist = $user->getInsurancecode();
+					//Si el alumno existe entramos y $user_exist almacena el insurancecode
+					if(password_verify($password, $alumno->getPassword()))
+						$this->user_exist = $alumno->getID();
 				}
 
-				//Si el usuario no existe lanzamos un error
-				if($this->user_exist == FALSE)
+				if($this->user_exist)
 				{
-					$data['error'] = '<div class="alert alert-danger">usuario o contraseña incorrectos.</div>';
+					//Si todo ha ido bien, genermos la sesión
+					$session_data = array(
+                   'alumno'  => $this->user_exist,
+                   'logged_in' => TRUE
+               );
+
+					$this->session->set_userdata($session_data);
+					redirect('home');
 
 				}else
 				{
-					//Si todo ha ido bien, almacenasmo el insurancecode y genermos la sesión
-					$sesion_data['insurance'] = $this->user_exist;
-					$this->session->set_userdata($sesion_data);
-
-					$lng = '';//Esta variable almacena el idioma principal de la interfaz
-
-					if(count($this->Main_model->get_languages() > 1))
-		   			{
-		   				foreach ($this->Main_model->get_languages() as $key => $value)
-		   				{
-							   if($value->id == 1)
-							   {
-							   		$lng = $value->iso_language;
-							   }
-						}
-		   			}
-
-					//redireccionamos al panel de control, podemos configurar la ruta y redireccionar
-					//al usuario al controlador que necesitemos
-					redirect($lng.'/paginas');
+					//lanzamos un error si el pass no es correcto.
+					return '<div style="font-size: 17px;text-align: center;line-height: 1.5em;color:white;">La contraseña que has introducido no es correcta.</div>';
 				}
-			}
-		}
 
-		if(isset($data))
-		{
-			$this->load->view('login',$data);
+			}else
+			{
+				//lanzamos un error si el usuario no existe.
+				return '<div style="font-size: 17px;text-align: center;line-height: 1.5em;color:white;">El alumno con el que intentas acceder no existe.</div>';
+			}
 
 		}else
 		{
-			$this->load->view('login');
+			return validation_errors();
 		}
 
 	}

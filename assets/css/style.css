@@ -11,7 +11,7 @@
     4.  Slider
     5.  Main all
     6. Responsive
-    
+
 
 --------------------------------------------------------------------------------*/
 
@@ -1342,9 +1342,7 @@ table.mc-table tbody .new .submissions a:before {
 .bg-sub-banner-course {
   background-image: url('../images/bg/sub-banner-course.jpg');
 }
-.bg-login-content {
-  background-image: url('../images/homeslider/bg.jpg');
-}
+
 .bg-featured-request-teacher {
   background-image: url('../images/bg/parallax-1.jpg');
 }
@@ -1914,23 +1912,23 @@ table.mc-table tbody .new .submissions a:before {
   color: #262626;
 }
 
-.post-content ul { 
-   list-style-type: disc; 
-   list-style-position: inside; 
+.post-content ul {
+   list-style-type: disc;
+   list-style-position: inside;
 }
-.post-content ol { 
-   list-style-type: decimal; 
-   list-style-position: inside; 
+.post-content ol {
+   list-style-type: decimal;
+   list-style-position: inside;
 }
-.post-content ul ul, .post-content  ol ul { 
-   list-style-type: circle; 
-   list-style-position: inside; 
-   margin-left: 15px; 
+.post-content ul ul, .post-content  ol ul {
+   list-style-type: circle;
+   list-style-position: inside;
+   margin-left: 15px;
 }
-.post-content ol ol, .post-content  ul ol { 
-   list-style-type: lower-latin; 
-   list-style-position: inside; 
-   margin-left: 15px; 
+.post-content ol ol, .post-content  ul ol {
+   list-style-type: lower-latin;
+   list-style-position: inside;
+   margin-left: 15px;
 }
 .post-content ul li,
 .post-content ol li {
@@ -4545,7 +4543,7 @@ footer#footer.footer-style-2 {
   z-index: 9;
 }
 .login-content .image {
-  position: absolute;
+  /*position: absolute;*/
   bottom: 0;
 }
 .login-content .form-login {
@@ -8494,4 +8492,10 @@ footer#footer.footer-style-2 {
   -webkit-transform: translate(0, -100%);
   -moz-transform: translate(0, -100%);
   transform: translate(0, -100%);
+}
+.login-content .image h2{
+  color:#fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size:3em;
 }

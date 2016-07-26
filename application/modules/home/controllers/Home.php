@@ -11,20 +11,16 @@ class Home  extends MX_Controller {
 	{
 
     parent::__construct();
-		$this->lang = $this->uri->segment(1);
-		$this->fields = array('ID','Página','fecha');
+		$this->lang = 'es';
 		define("ICONO","fa fa-file-text-o");
 		define("TABLE","Home");
-		//$this->load->model(TABLE.'_model');
-
   }
 
 	public function index()
 	{
 
-		//$data = $this->base(__FUNCTION__);
-		//$data['fields'] = $this->fields;
-		//$this->load->view('layout', $data);
+		$data = $this->base(__FUNCTION__);
+		$this->load->view('layout', $data);
 		echo $this->uri->segment(1);
 
  	}
@@ -56,17 +52,14 @@ class Home  extends MX_Controller {
 
 		$base = array(
 						'lang' => $this->lang,
-						'title' => "Panel de control | ".$this->Main_model->get_project_data()->name,
+						'title' => "Panel de control | ",
 						'reference' => strtoupper(TABLE.'-'.$action),
 						'view' => strtolower (TABLE).'_'.$action,
 						'page' => TABLE,
 						'icono' => ICONO,
 						'robots' => 'noindex, nofollow',
-						'languages' => $this->Main_model->get_languages(),
 						'js' => $this->load->view('js_module/js_module','',TRUE),
 						'css' => $this->load->view('css_module/css_module',TRUE),
-						'lang' => $this->lang,
-						'main_lang' => $this->main_lang
 
 					);
 
@@ -76,9 +69,9 @@ class Home  extends MX_Controller {
 
 			case 'index':
 
-				$base['get_result'] = $this->$model->get_data(strtolower (TABLE));
-				$base['tooltip'] = strtolower (substr(TABLE, 0, -1));
-				$base['param'] = strtolower (TABLE);
+				//$base['get_result'] = $this->$model->get_data(strtolower (TABLE));
+				//$base['tooltip'] = strtolower (substr(TABLE, 0, -1));
+				//$base['param'] = strtolower (TABLE);
 
 				break;
 

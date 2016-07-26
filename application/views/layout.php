@@ -22,6 +22,14 @@
 
 		<title><?= $title; ?></title>
 
+		<style media="screen">
+
+			.bg-login-content{
+				background-image: url('<?= base_url('assets/images/homeslider/policia-SHOKE-oposiciones.jpg') ?>');
+			}
+
+		</style>
+
 		<?php $this->load->view('css/css') ?>
 
 	</head>
