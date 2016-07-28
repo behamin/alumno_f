@@ -44,6 +44,8 @@
 
 		<?php $this->load->view($view) ?>
 
+		<?php $this->load->view('footer') ?>
+
 		<?php $this->load->view('js/js') ?>
 
 	</body>

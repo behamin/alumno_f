@@ -5884,7 +5884,7 @@ footer#footer.footer-style-2 {
 }
 /* LEARNING PAGE */
 .top-nav {
-  position: fixed;
+  /*position: fixed;*/
   display: table;
   top: 0;
   left: 0;
@@ -5894,7 +5894,9 @@ footer#footer.footer-style-2 {
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
 }
+.THEMES-THEME h3.sm{color:#666;}
 .top-nav h4 {
   display: table-cell;
   vertical-align: middle;
@@ -6807,10 +6809,14 @@ footer#footer.footer-style-2 {
   line-height: 28px;
   margin-right: 16px;
 }
-.create-course-sidebar .list-bar .active {
+.create-course-sidebar .list-bar .active,.create-course-sidebar .list-bar li:hover {
   background-color: #37abf2;
   color: #fff;
 }
+.create-course-sidebar .list-bar .active a,.create-course-sidebar .list-bar li:hover a {
+  color: #fff;
+}
+
 .create-course-sidebar .list-bar .active .count {
   background-color: #fff;
 }
@@ -8498,4 +8504,7 @@ footer#footer.footer-style-2 {
   font-weight: bold;
   text-transform: uppercase;
   font-size:3em;
+}
+.THEMES-INDEX .create-course-content, .THEMES-THEME .create-course-content{
+  padding:0;
 }

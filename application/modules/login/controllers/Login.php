@@ -54,20 +54,13 @@ class Login extends MX_Controller
 		if($this->form_validation->run() == TRUE)
 		{
 			//consultamos en la base de datos si existe el usuario
-			$alumno = $this->doctrine->em->getRepository("Entities\\".TABLE."datos")->findOneBy(["email" => $email]);
-
+			$alumno = $this->doctrine->default->getRepository("Entities\\".TABLE."datos")->findOneBy(["email" => $email]);
+			//Si existe un usuario con ese email entramos
 			if ($alumno != null)
 			{
-				//Recuperamos todos los alumnos
-				$alumnos = $this->doctrine->em->getRepository("Entities\\".TABLE)->findBy(["active" => 1]);
-
-				//Recorremos todos los alumnos buscando una coincidencia
-				foreach ($alumnos as $key => $alumno)
-				{
-					//Si el alumno existe entramos y $user_exist almacena el insurancecode
-					if(password_verify($password, $alumno->getPassword()))
-						$this->user_exist = $alumno->getID();
-				}
+				//comprobamos la contraseña, y si esw correcta lamacenamos el id en @user_exist
+				if(password_verify($password, $alumno->getAlumnos()->getPassword()))
+					$this->user_exist = $alumno->getAlumnos()->getID();
 
 				if($this->user_exist)
 				{

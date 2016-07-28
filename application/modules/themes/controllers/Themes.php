@@ -1,25 +1,17 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Home  extends MX_Controller {
+class Themes  extends MX_Controller {
 
 	private $lang = "";
-	private $idAlumno = 0;
-	private $alumno = null;
-	private $curso = null;
 
 	public function __construct()
 	{
 
     parent::__construct();
 		$this->lang = 'es';
-		//almacenamos el id del usuario
-		$this->idAlumno = $this->session->userdata('alumno');
-		//almacenamos datos alumno
-		$this->alumno = $this->doctrine->default->find("Entities\\Alumnos", $this->idAlumno);
-		//cargamos los datos del curso
-		$this->curso = $this->doctrine->academy->find("Entities\\Cursos", $this->alumno->getCourseid());
-		define("TABLE","Home");
+		define("ICONO","fa fa-file-text-o");
+		define("TABLE","Themes");
   }
 
 	public function index()
@@ -30,24 +22,21 @@ class Home  extends MX_Controller {
 
  	}
 
-	public function add()
+	public function theme()
 	{
 
 		$data = $this->base(__FUNCTION__);
-		redirect(strtolower (TABLE).'/edit/'.$data['last_id']);
-	}
-
-	public function edit($id)
-	{
-		$data = $this->base(__FUNCTION__);
-		$data['id'] = $id;
 		$this->load->view('layout', $data);
 
-		if (isset( $_POST['submit_form'] ))
-		{
+ 	}
 
-		}
-	}
+	public function chapter()
+	{
+
+		$data = $this->base(__FUNCTION__);
+		$this->load->view('layout', $data);
+
+ 	}
 
 	//Base para los metodos.
 	private function base($action = null)
@@ -61,12 +50,13 @@ class Home  extends MX_Controller {
 						'reference' => strtoupper(TABLE.'-'.$action),
 						'view' => strtolower (TABLE).'_'.$action,
 						'page' => TABLE,
+						'icono' => ICONO,
 						'robots' => 'noindex, nofollow',
 						'js' => $this->load->view('js_module/js_module','',TRUE),
 						'css' => $this->load->view('css_module/css_module',TRUE),
-						'curso' => $this->curso
 
 					);
+
 
 		switch ($action)
 		{

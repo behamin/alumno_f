@@ -16,6 +16,12 @@ class Alumnos
     protected $id;
 
 		/**
+		 * @Column(type="integer")
+		 * @var int
+		 **/
+		protected $courseid;
+
+		/**
      * @Column(type="string",nullable=true)
      * @var string
      **/
@@ -42,9 +48,14 @@ class Alumnos
         $this->created = new \DateTime("now");
     }
 
-	 public function getId()
+	 	public function getId()
     {
         return $this->id;
+    }
+
+		public function getCourseid()
+    {
+        return $this->courseid;
     }
 
     public function getPassword()

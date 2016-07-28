@@ -1,25 +1,18 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Home  extends MX_Controller {
+class Profile  extends MX_Controller {
 
 	private $lang = "";
-	private $idAlumno = 0;
-	private $alumno = null;
-	private $curso = null;
+	private $fields = array();
 
 	public function __construct()
 	{
 
     parent::__construct();
 		$this->lang = 'es';
-		//almacenamos el id del usuario
-		$this->idAlumno = $this->session->userdata('alumno');
-		//almacenamos datos alumno
-		$this->alumno = $this->doctrine->default->find("Entities\\Alumnos", $this->idAlumno);
-		//cargamos los datos del curso
-		$this->curso = $this->doctrine->academy->find("Entities\\Cursos", $this->alumno->getCourseid());
-		define("TABLE","Home");
+		define("ICONO","fa fa-file-text-o");
+		define("TABLE","Alumno");
   }
 
 	public function index()
@@ -61,12 +54,13 @@ class Home  extends MX_Controller {
 						'reference' => strtoupper(TABLE.'-'.$action),
 						'view' => strtolower (TABLE).'_'.$action,
 						'page' => TABLE,
+						'icono' => ICONO,
 						'robots' => 'noindex, nofollow',
 						'js' => $this->load->view('js_module/js_module','',TRUE),
 						'css' => $this->load->view('css_module/css_module',TRUE),
-						'curso' => $this->curso
 
 					);
+
 
 		switch ($action)
 		{

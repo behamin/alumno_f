@@ -7,7 +7,8 @@ use Doctrine\Common\ClassLoader,
 
 class Doctrine {
 
-    public $em = null;
+    public $default = null;
+    public $academy = null;
 
     public function __construct()
     {
@@ -43,7 +44,7 @@ class Doctrine {
         $config->setAutoGenerateProxyClasses( TRUE );
 
         //configuramos la conexión con la base de datos utilizando las credenciales de nuestra app
-        $connectionOptions = array(
+        $connectionDefault = array(
             'driver' => 'pdo_mysql',
             'user' =>     $db["default"]["username"],
             'password' => $db["default"]["password"],
@@ -51,7 +52,16 @@ class Doctrine {
             'dbname' =>   $db["default"]["database"]
         );
 
+        $connectionAcademy = array(
+            'driver' => 'pdo_mysql',
+            'user' =>     $db["academy"]["username"],
+            'password' => $db["academy"]["password"],
+            'host' =>     $db["academy"]["hostname"],
+            'dbname' =>   $db["academy"]["database"]
+        );
+
         // Creamos el EntityManager
-        $this->em = EntityManager::create($connectionOptions, $config);
+        $this->default = EntityManager::create($connectionDefault, $config);
+        $this->academy = EntityManager::create($connectionAcademy, $config);
     }
 }
