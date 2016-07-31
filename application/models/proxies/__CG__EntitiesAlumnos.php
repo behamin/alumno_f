@@ -64,10 +64,10 @@ class Alumnos extends \Entities\Alumnos implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'password', 'active', 'created', 'alumnosdatos'];
+            return ['__isInitialized__', 'id', 'courseid', 'password', 'active', 'created', 'alumnosdatos'];
         }
 
-        return ['__isInitialized__', 'id', 'password', 'active', 'created', 'alumnosdatos'];
+        return ['__isInitialized__', 'id', 'courseid', 'password', 'active', 'created', 'alumnosdatos'];
     }
 
     /**
@@ -186,6 +186,17 @@ class Alumnos extends \Entities\Alumnos implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', []);
 
         return parent::getId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCourseid()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCourseid', []);
+
+        return parent::getCourseid();
     }
 
     /**

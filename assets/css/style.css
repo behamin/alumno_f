@@ -198,6 +198,9 @@ h5,
   line-height: 1.5em;
   color: #fff;
 }
+.THEMES-THEME h4.sm, .THEMES-CHAPTER h4.sm{
+  font-size: 15px;
+}
 h6,
 .xsm {
   font-family: 'Lato', sans-serif;
@@ -5896,7 +5899,7 @@ footer#footer.footer-style-2 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
 }
-.THEMES-THEME h3.sm{color:#666;}
+.THEMES-THEME h3.sm,.THEMES-CHAPTER h3.sm{color:#666;font-weight: bold}
 .top-nav h4 {
   display: table-cell;
   vertical-align: middle;
@@ -8507,4 +8510,13 @@ footer#footer.footer-style-2 {
 }
 .THEMES-INDEX .create-course-content, .THEMES-THEME .create-course-content{
   padding:0;
+}
+h3.title-chapter{
+  font-family: "Lato",sans-serif;
+  font-size: 18px;
+  color:#428bca;
+  font-weight: bold;
+}
+.text-chapter p{
+  margin:0!important;
 }

@@ -1,6 +1,6 @@
 <div class="top-nav">
 
-  <h4 class="sm black bold">Título del tema</h4>
+  <h4 class="sm black bold"><?= $titleNavtop ?></h4>
 
   <ul class="top-nav-list">
 

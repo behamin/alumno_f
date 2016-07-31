@@ -18,23 +18,15 @@
 
                       <tbody>
 
-                        <tr class="new">
+                        <?php foreach ($temas as $key => $value): ?>
 
-                            <td class="submissions"><a href="#">Título del tema</a></td>
+                          <tr class="new">
 
-                        </tr>
+                              <td class="submissions"><a href="<?= site_url('themes/theme/'.$value->getIdtheme()) ?>"><?= $value->getTitletheme() ?></a></td>
 
-                        <tr class="new">
+                          </tr>
 
-                            <td class="submissions"><a href="#">Título del tema</a></td>
-
-                        </tr>
-
-                        <tr class="new">
-
-                            <td class="submissions"><a href="#">Título del tema</a></td>
-
-                        </tr>
+                        <?php endforeach ?>
 
                       </tbody>
 

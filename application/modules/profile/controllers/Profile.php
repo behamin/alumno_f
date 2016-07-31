@@ -4,14 +4,18 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Profile  extends MX_Controller {
 
 	private $lang = "";
-	private $fields = array();
+	private $idAlumno = 0;
+	private $alumno = null;
 
 	public function __construct()
 	{
 
     parent::__construct();
 		$this->lang = 'es';
-		define("ICONO","fa fa-file-text-o");
+		//almacenamos el id del usuario
+		$this->idAlumno = $this->session->userdata('alumno');
+		//almacenamos datos alumno
+		$this->alumno = $this->doctrine->default->find("Entities\\Alumnos", $this->idAlumno);
 		define("TABLE","Alumno");
   }
 
@@ -19,6 +23,7 @@ class Profile  extends MX_Controller {
 	{
 
 		$data = $this->base(__FUNCTION__);
+		$data['alumno'] = $this->alumno;
 		$this->load->view('layout', $data);
 
  	}
@@ -54,7 +59,6 @@ class Profile  extends MX_Controller {
 						'reference' => strtoupper(TABLE.'-'.$action),
 						'view' => strtolower (TABLE).'_'.$action,
 						'page' => TABLE,
-						'icono' => ICONO,
 						'robots' => 'noindex, nofollow',
 						'js' => $this->load->view('js_module/js_module','',TRUE),
 						'css' => $this->load->view('css_module/css_module',TRUE),

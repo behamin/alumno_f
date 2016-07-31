@@ -14,23 +14,20 @@
 
               <div class="table-student-submission">
 
-                  <table class="mc-table">
+                  <h3 class="title-chapter"><?= $capitulo->getTitlethemeparts() ?></h3>
 
-                      <tbody>
+                  <div class="text-chapter">
 
-                        <?php foreach ($capitulos as $key => $value): ?>
+                    <?php if($capitulo->getVideothemeparts() != null): ?>
 
-                          <tr class="new">
+                      <iframe style="margin-bottom:20px;" width="100%" height="315" src="https://www.youtube.com/embed/<?= $capitulo->getVideothemeparts() ?>" frameborder="0" allowfullscreen></iframe>
 
-                              <td class="submissions"><a href="<?= site_url('themes/chapter/'.$id.'/'.$value->getIdthemeparts()) ?>"><?= $value->getTitlethemeparts() ?></a></td>
+                    <?php endif ?>
 
-                          </tr>
+                    <?= $capitulo->getTextthemeparts() ?>
 
-                        <?php endforeach ?>
+                  </div>
 
-                      </tbody>
-
-                  </table>
 
               </div>
 

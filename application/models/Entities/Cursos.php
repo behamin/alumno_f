@@ -25,6 +25,12 @@ class Cursos
      * @Column(type="string")
      * @var string
      **/
+    protected $text_course;
+
+		/**
+     * @Column(type="string")
+     * @var string
+     **/
     protected $id_legal_rule;
 
 		/**
@@ -53,6 +59,9 @@ class Cursos
         return $this->id_themes;
     }
 
-
+		public function getTextcourse()
+    {
+        return $this->text_course;
+    }
 
 }

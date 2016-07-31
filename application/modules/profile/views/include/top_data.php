@@ -1,6 +1,3 @@
-<h3 class="md black">Anna Molly</h3>
-<h4 class="md black">Nombre del curso</h4>
-<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-  tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-  nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-</p>
+<h3 class="md black"><?= $alumno->getAlumnosdatos()->getName() ?> <?= $alumno->getAlumnosdatos()->getSurname() ?></h3>
+<h4 class="md black">Curso <?= $this->session->userdata('curso') ?></h4>
+<?= $this->session->userdata('cursoDes') ?>

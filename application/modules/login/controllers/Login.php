@@ -58,15 +58,23 @@ class Login extends MX_Controller
 			//Si existe un usuario con ese email entramos
 			if ($alumno != null)
 			{
-				//comprobamos la contraseña, y si esw correcta lamacenamos el id en @user_exist
+				//comprobamos la contraseña, y si es correcta almacenamos el id en @user_exist
 				if(password_verify($password, $alumno->getAlumnos()->getPassword()))
+				{
+					//obtenemos los datos del curso
+					$curso = $this->doctrine->academy->find("Entities\\Cursos", $alumno->getAlumnos()->getCourseid());
 					$this->user_exist = $alumno->getAlumnos()->getID();
+				}
 
 				if($this->user_exist)
 				{
 					//Si todo ha ido bien, genermos la sesión
 					$session_data = array(
                    'alumno'  => $this->user_exist,
+									 'cursoid' => $curso->getIdcourse(),
+									 'curso' => $curso->getTitlecourse(),
+									 'cursoDes' => $curso->getTextcourse(),
+									 'idThemes' => $curso->getIdthemes(),
                    'logged_in' => TRUE
                );
 

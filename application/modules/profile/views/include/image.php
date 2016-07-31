@@ -1,6 +1,6 @@
 <div class="changes-avatar">
     <div class="img-acount">
-        <img alt="" src="<?= base_url('assets/alumnos_images/team-13.jpg') ?>">
+        <img alt="" src="<?= base_url('assets/alumnos_images/'.$alumno->getAlumnosdatos()->getImage()) ?>">
     </div>
     <div class="choses-file up-file">
         <input type="file">
