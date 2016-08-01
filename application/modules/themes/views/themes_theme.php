@@ -42,21 +42,7 @@
 
             <div class="create-course-content">
 
-              <div class="widget quick_link">
-
-                <h3 class="sm">Índice</3>
-
-                  <ul class="list-style-block">
-                      <li>
-                        <a href="#">Capítulo1</a>
-                      </li>
-
-                      <li><a href="#">Capítulo2</a></li>
-                      <li><a href="#">Capítulo3</a></li>
-                      <li><a href="#">Capítulo4</a></li>
-                  </ul>
-
-              </div>
+              <?php $this->load->view('include/tree_theme') ?>
 
             </div>
 

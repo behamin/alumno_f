@@ -7082,6 +7082,12 @@ footer#footer.footer-style-2 {
 .create-course-content .widget {
   padding: 15px 0 15px 28px;
 }
+.THEMES-CHAPTER .create-course-content .widget, .THEMES-THEME .create-course-content .widget{
+  padding: 15px 0 15px 0;
+}
+.THEMES-CHAPTER .list-group-item, .THEMES-THEME .list-group-item {
+  border: none !important;
+}
 .create-course-content .widget .icon {
   left: 0;
 }

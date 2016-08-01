@@ -1,6 +1,6 @@
 <div class="top-nav">
 
-  <h4 class="sm black bold"><?= $titleNavtop ?></h4>
+  <h4 class="sm black bold"><?= utf8_encode($titleNavtop) ?></h4>
 
   <ul class="top-nav-list">
 
@@ -9,15 +9,15 @@
     </li>
 
     <li class="prev-course">
-      <a href="<?= site_url('home') ?>">Mi perfil</a>
+      <a href="<?= site_url('profile') ?>">Mi perfil</a>
     </li>
 
     <li class="prev-course">
-      <a href="<?= site_url('home') ?>">Temario</a>
+      <a href="<?= site_url('themes') ?>">Temario</a>
     </li>
 
     <li class="prev-course">
-      <a href="<?= site_url('home') ?>">Test</a>
+      <a href="<?= site_url('test') ?>">Test</a>
     </li>
 
   </ul>

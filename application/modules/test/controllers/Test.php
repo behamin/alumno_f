@@ -1,18 +1,16 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Home  extends MX_Controller {
+class Test  extends MX_Controller {
 
 	private $lang = "";
-	private $fields = array();
 
 	public function __construct()
 	{
 
     parent::__construct();
 		$this->lang = 'es';
-		define("ICONO","fa fa-file-text-o");
-		define("TABLE","Home");
+		define("TABLE","Test");
   }
 
 	public function index()
@@ -54,7 +52,6 @@ class Home  extends MX_Controller {
 						'reference' => strtoupper(TABLE.'-'.$action),
 						'view' => strtolower (TABLE).'_'.$action,
 						'page' => TABLE,
-						'icono' => ICONO,
 						'robots' => 'noindex, nofollow',
 						'js' => $this->load->view('js_module/js_module','',TRUE),
 						'css' => $this->load->view('css_module/css_module',TRUE),
