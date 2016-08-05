@@ -98,33 +98,6 @@ class Themes  extends MX_Controller {
 						'css' => $this->load->view('css_module/css_module',TRUE),
 					);
 
-
-		switch ($action)
-		{
-
-			case 'index':
-
-				//$base['get_result'] = $this->$model->get_data(strtolower (TABLE));
-				//$base['tooltip'] = strtolower (substr(TABLE, 0, -1));
-				//$base['param'] = strtolower (TABLE);
-
-				break;
-
-			case 'add':
-
-				$base['last_id'] = $this->$model->set_data(strtolower (TABLE));
-
-				break;
-
-			case 'edit':
-
-				$base['subpage'] = 'Editar '.substr(TABLE, 0, -1);
-				$base['param'] = strtolower (TABLE);
-				//$base['testerdata'] = $this->Test_model->test_data();
-
-				break;
-		}
-
 		return $base;
 
 	}

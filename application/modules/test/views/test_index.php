@@ -28,6 +28,8 @@
 
                 <?php $this->load->view('include/generar_tab') ?>
 
+                <?php $this->load->view('include/mistest_tab') ?>
+
               </div>
 
           </div>

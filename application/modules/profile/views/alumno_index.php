@@ -18,15 +18,19 @@
 
                     <?php $this->load->view('include/top_data') ?>
 
+                    <form method="post">
+
                     <?php $this->load->view('include/form') ?>
 
                   </div>
 
                   <div class="input-save">
 
-                      <input type="submit" class="mc-btn btn-style-1" value="Guardar cambios">
-                      
+                      <input name="submitData" type="submit" class="mc-btn btn-style-1" value="Guardar cambios">
+
                   </div>
+
+                  </form>
 
               </div>
 

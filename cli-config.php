@@ -21,4 +21,4 @@ define('APPPATH', __DIR__ . '/application/');
 require APPPATH . 'libraries/Doctrine.php';
 $doctrine = new Doctrine();
 
-return ConsoleRunner::createHelperSet($doctrine->em);
+return ConsoleRunner::createHelperSet($doctrine->default);

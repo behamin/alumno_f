@@ -11,6 +11,8 @@ class Profile  extends MX_Controller {
 	{
 
     parent::__construct();
+		//cargamos el helper para encriptar el pass en caso necesario
+		$this->load->helper('MY_encrypt_helper');
 		$this->lang = 'es';
 		//almacenamos el id del usuario
 		$this->idAlumno = $this->session->userdata('alumno');
@@ -23,29 +25,48 @@ class Profile  extends MX_Controller {
 	{
 
 		$data = $this->base(__FUNCTION__);
+		//datos del alumno
+		$data['idAlumno'] = $this->idAlumno;
+		//id del alumno
 		$data['alumno'] = $this->alumno;
+		// si enviamos formulario
+		if(isset($_POST['submitData']))
+		{
+
+			// validamos el email, este es obligatorio
+			$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+			// si cambiamos el pass realizamos unas validaciones
+			if($this->input->post('pass'))
+			{
+				//comprobamos que la contraseña no es menor de 8 caracteres
+				$this->form_validation->set_rules('pass', 'Contraseña', 'min_length[8]');
+				//comprobamos que confirmar contraseña es igual a contraseña
+				$this->form_validation->set_rules('repeatPass', 'Confirmar password', 'matches[pass]');
+			}
+
+			$this->form_validation->set_error_delimiters('<div role="alert" class="alert alert-danger">', '</div>');
+			//si todo ha ido bien, entramos y actualizamos los datos
+			if($this->form_validation->run())
+			{
+				$alumnoData = $this->doctrine->default->getRepository("Entities\\Alumnosdatos")->findOneBy(array("alumnos" => $this->alumno));
+				$alumnoData->setEmail($this->input->post('email'));
+    		$this->doctrine->default->flush();
+				//si cambiamos el pass lo actualizamos
+				if($this->input->post('pass'))
+				{
+					$alumno = $this->doctrine->default->getRepository("Entities\\Alumnos")->find($this->alumno);
+					//encriotamos la contraseña y la almacenamos en una variable
+					$pass = encode_string($this->input->post('pass'));
+					$alumno->setPassword($pass);
+	    		$this->doctrine->default->flush();
+
+				}
+			}
+		}
+
 		$this->load->view('layout', $data);
 
  	}
-
-	public function add()
-	{
-
-		$data = $this->base(__FUNCTION__);
-		redirect(strtolower (TABLE).'/edit/'.$data['last_id']);
-	}
-
-	public function edit($id)
-	{
-		$data = $this->base(__FUNCTION__);
-		$data['id'] = $id;
-		$this->load->view('layout', $data);
-
-		if (isset( $_POST['submit_form'] ))
-		{
-
-		}
-	}
 
 	//Base para los metodos.
 	private function base($action = null)
@@ -64,33 +85,6 @@ class Profile  extends MX_Controller {
 						'css' => $this->load->view('css_module/css_module',TRUE),
 
 					);
-
-
-		switch ($action)
-		{
-
-			case 'index':
-
-				//$base['get_result'] = $this->$model->get_data(strtolower (TABLE));
-				//$base['tooltip'] = strtolower (substr(TABLE, 0, -1));
-				//$base['param'] = strtolower (TABLE);
-
-				break;
-
-			case 'add':
-
-				$base['last_id'] = $this->$model->set_data(strtolower (TABLE));
-
-				break;
-
-			case 'edit':
-
-				$base['subpage'] = 'Editar '.substr(TABLE, 0, -1);
-				$base['param'] = strtolower (TABLE);
-				//$base['testerdata'] = $this->Test_model->test_data();
-
-				break;
-		}
 
 		return $base;
 

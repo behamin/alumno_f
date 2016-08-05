@@ -4,12 +4,15 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Test  extends MX_Controller {
 
 	private $lang = "";
+	private $id_alumno = null;
 
 	public function __construct()
 	{
 
     parent::__construct();
 		$this->lang = 'es';
+		// almacenamos el id del alumno
+		$this->id_alumno = explode(',',$this->session->userdata('alumno'));
 		define("TABLE","Test");
   }
 
@@ -17,28 +20,24 @@ class Test  extends MX_Controller {
 	{
 
 		$data = $this->base(__FUNCTION__);
+		//Obtenemos el listado de test realizados.
+		$data['tests'] = $this->doctrine->default->getRepository("Entities\\Tests")->findBy(array("alumnoid" => $this->id_alumno));
 		$this->load->view('layout', $data);
 
  	}
 
-	public function add()
+	public function numtest($id)
 	{
 
 		$data = $this->base(__FUNCTION__);
-		redirect(strtolower (TABLE).'/edit/'.$data['last_id']);
-	}
-
-	public function edit($id)
-	{
-		$data = $this->base(__FUNCTION__);
-		$data['id'] = $id;
+		//pasamos el título para el nav_top, en este caso el título del tema
+		$data['titleNavtop'] = 'Test nº '.$id;
+		//obtenemos los datos del test y su resultado desde la tabla evaluación
+		$data['test'] = $this->doctrine->default->getRepository("Entities\\Evaluacion")->findOneBy(array("testid" => $id));
+		//print_r ($data['test']->getEvaluacionrespuestas());
 		$this->load->view('layout', $data);
 
-		if (isset( $_POST['submit_form'] ))
-		{
-
-		}
-	}
+ 	}
 
 	//Base para los metodos.
 	private function base($action = null)

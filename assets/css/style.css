@@ -7082,8 +7082,11 @@ footer#footer.footer-style-2 {
 .create-course-content .widget {
   padding: 15px 0 15px 28px;
 }
-.THEMES-CHAPTER .create-course-content .widget, .THEMES-THEME .create-course-content .widget{
+.THEMES-CHAPTER .create-course-content .widget{
   padding: 15px 0 15px 0;
+}
+.THEMES-THEME .create-course-content .widget{
+  padding: 15px 28px 15px 28px;
 }
 .THEMES-CHAPTER .list-group-item, .THEMES-THEME .list-group-item {
   border: none !important;

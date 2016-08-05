@@ -19,7 +19,7 @@
 		<li class="list-item account">
 
 					<div class="account-info item-click">
-							<img alt="" src="<?= base_url('assets/alumnos_images/team-13.jpg') ?>">
+							<img alt="" src="<?= base_url('assets/profile_images/team-13.jpg') ?>">
 					</div>
 
 			</li>
