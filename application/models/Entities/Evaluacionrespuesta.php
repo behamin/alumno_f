@@ -21,6 +21,24 @@ class Evaluacionrespuesta
      **/
     protected $evaluacionid;
 
+		/**
+     * @Column(type="integer")
+     * @var int
+     **/
+    protected $questionid;
+
+		/**
+     * @Column(type="integer")
+     * @var int
+     **/
+    protected $responseid;
+
+		/**
+     * @Column(type="integer")
+     * @var int
+     **/
+    protected $response;
+
     /**
      * @ManyToOne(targetEntity="Evaluacion", inversedBy="evaluacionrespuesta")
      * @JoinColumn(name="evaluacionid", referencedColumnName="id")
@@ -35,6 +53,21 @@ class Evaluacionrespuesta
 		public function getEvaluacionid()
     {
         return $this->evaluacionid;
+    }
+
+		public function getQuestionid()
+    {
+        return $this->questionid;
+    }
+
+		public function getResponseid()
+    {
+        return $this->responseid;
+    }
+
+		public function getResponse()
+    {
+        return $this->response;
     }
 
 }

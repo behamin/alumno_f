@@ -2,7 +2,7 @@
 
   <div class="score-sb">
 
-    <h4 class="title-sb sm bold">Total de preguntas<span>60</span></h4>
+    <h4 class="title-sb sm bold">Total de preguntas<span><?= count($test->getEvaluacionrespuestas()) ?></span></h4>
 
     <div class="list-wrap ps-container ps-active-x" style="height: 520px; max-height: none;">
 
