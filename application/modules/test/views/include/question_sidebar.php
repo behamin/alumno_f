@@ -8,11 +8,11 @@
 
       <ul>
 
-        <li><i class="icon"></i>No contestadas<span>20</span></li>
+        <li><i class="icon"></i>No contestadas<span><?= $totalres['noContestadas'] ?></span></li>
 
-        <li class="err"><i class="icon"></i>No acertadas<span>20</span></li>
+        <li class="err"><i class="icon"></i>No acertadas<span><?= $totalres['noAcertadas'] ?></span></li>
 
-        <li class="active"><i class="icon"></i>Acertadas<span>20</span></li>
+        <li class="active"><i class="icon"></i>Acertadas<span><?= $totalres['acertadas'] ?></span></li>
 
       </ul>
 

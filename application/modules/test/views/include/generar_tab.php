@@ -1,1 +1,28 @@
-<div role="tabpanel" class="tab-pane active" id="generartest">...</div>
+<div role="tabpanel" class="tab-pane active" id="generartest">
+
+  <div class="col-md-2">
+
+    <h4 class="title-box text-uppercase">Tipo de test</h4>
+
+    <div class="radio">
+
+      <label>
+        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+        Todas
+      </label>
+
+      <label>
+        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+        Por temas
+      </label>
+
+      <label>
+        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+        Erradas
+      </label>
+
+    </div>
+
+  </div>
+
+</div>

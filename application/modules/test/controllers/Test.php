@@ -34,6 +34,22 @@ class Test  extends MX_Controller {
 		$data['titleNavtop'] = 'Test nº '.$id;
 		//obtenemos los datos del test y su resultado desde la tabla evaluación
 		$data['test'] = $this->doctrine->default->getRepository("Entities\\Evaluacion")->findOneBy(array("testid" => $id));
+		//creamos un array donde almacenamos el número total de preguntas no contestadas, acertadas y no acertadas.
+		//preguntas no contestadas
+		$noContestadas = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findBy(
+		array("evaluacionid" => $data['test']->getId(),"response" => -1));
+		//preguntas acertadas
+		$acertadas = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findBy(
+		array("evaluacionid" => $data['test']->getId(),"response" => 1));
+		//preguntas no acertadas
+		$noAcertadas = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findBy(
+		array("evaluacionid" => $data['test']->getId(),"response" => 0));
+
+		$data['totalres'] = array(
+																'noContestadas' => count($noContestadas),
+																'acertadas' => count($acertadas),
+																'noAcertadas' => count($noAcertadas),
+														);
 		//print_r ($data['test']->getEvaluacionrespuestas());
 		$this->load->view('layout', $data);
 

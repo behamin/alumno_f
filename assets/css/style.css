@@ -6717,6 +6717,7 @@ footer#footer.footer-style-2 {
 }
 .table-question {
   margin-top: 32px;
+  margin-bottom: 50px;
   width: 100%;
 }
 .table-question thead th {
@@ -8529,4 +8530,7 @@ h3.title-chapter{
 }
 .text-chapter p{
   margin:0!important;
+}
+#generartest.tab-pane{
+  min-height: 200px;
 }
