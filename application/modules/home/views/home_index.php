@@ -1,6 +1,6 @@
 <?php $this->load->view('include/content/sub_banner') ?>
 
-<section id="create-course-section" class="create-course-section">
+<section class="profile">
 
   <div class="container">
 
@@ -10,9 +10,18 @@
 
         <div class="col-md-9">
 
-          <div class="create-course-content">
-            home
-          </div>
+          <div class="avatar-acount">
+
+            <?php $this->load->view('include/image') ?>
+
+            <div class="info-acount">
+
+              <?php $this->load->view('include/top_data') ?>
+
+            </div>
+
+
+            </div>
 
         </div>
 

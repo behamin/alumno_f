@@ -13,6 +13,8 @@ class Home  extends MX_Controller {
 		$this->lang = 'es';
 		//almacenamos el id del usuario
 		$this->idAlumno = $this->session->userdata('alumno');
+		//almacenamos datos alumno
+		$this->alumno = $this->doctrine->default->find("Entities\\Alumnos", $this->idAlumno);
 		define("TABLE","Home");
   }
 
@@ -20,6 +22,24 @@ class Home  extends MX_Controller {
 	{
 
 		$data = $this->base(__FUNCTION__);
+		//id del alumno
+		$data['idAlumno'] = $this->idAlumno;
+		//datos del alumno
+		$data['alumno'] = $this->alumno;
+		//saludo según horario
+		$h = date ("H");
+		if($h < 12)
+		{
+			$data['saludo'] = 'Buenos días';
+
+		}elseif($h < 20)
+		{
+			$data['saludo'] = 'Buenas tardes';
+
+		}else
+		{
+			$data['saludo'] = 'Buenas noches';
+		}
 		$this->load->view('layout', $data);
 
  	}

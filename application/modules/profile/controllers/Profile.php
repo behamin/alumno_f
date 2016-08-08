@@ -25,9 +25,9 @@ class Profile  extends MX_Controller {
 	{
 
 		$data = $this->base(__FUNCTION__);
-		//datos del alumno
-		$data['idAlumno'] = $this->idAlumno;
 		//id del alumno
+		$data['idAlumno'] = $this->idAlumno;
+		//datos del alumno
 		$data['alumno'] = $this->alumno;
 		// si enviamos formulario
 		if(isset($_POST['submitData']))

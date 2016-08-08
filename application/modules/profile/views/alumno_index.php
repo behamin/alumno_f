@@ -14,25 +14,25 @@
 
             <?php $this->load->view('include/image') ?>
 
-                  <div class="info-acount">
+                <div class="info-acount">
 
-                    <?php $this->load->view('include/top_data') ?>
+                  <?php $this->load->view('include/top_data') ?>
 
-                    <form method="post">
+                  <form method="post">
 
-                    <?php $this->load->view('include/form') ?>
+                  <?php $this->load->view('include/form') ?>
 
-                  </div>
+                </div>
 
-                  <div class="input-save">
+                <div class="input-save">
 
-                      <input name="submitData" type="submit" class="mc-btn btn-style-1" value="Guardar cambios">
+                    <input name="submitData" type="submit" class="mc-btn btn-style-1" value="Guardar cambios">
 
-                  </div>
+                </div>
 
-                  </form>
+                </form>
 
-              </div>
+            </div>
 
         </div>
 
