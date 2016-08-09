@@ -72,6 +72,7 @@ class Login extends MX_Controller
 					//Si todo ha ido bien, genermos la sesión
 					$session_data = array(
                    'alumno'  => $this->user_exist,
+									 'created'  => $alumno->getAlumnos()->getCreated()->format("d-m-Y"),
 									 'ultcon'  => $alumno->getAlumnos()->getLastconection()->format("d-m-Y"),
 									 'dultcom'  => between_dates(date("Y-m-d"),$alumno->getAlumnos()->getLastconection()->format("Y-m-d")),
 									 'cursoid' => $curso->getIdcourse(),

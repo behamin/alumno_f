@@ -1,4 +1,4 @@
-<div class="col-md-2">
+<div style="display:none;" id="typeQuestion" class="col-md-2">
 
   <h4 class="title-box text-uppercase">Preguntas</h4>
 

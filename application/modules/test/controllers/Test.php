@@ -55,6 +55,25 @@ class Test  extends MX_Controller {
 
  	}
 
+	public function generated()
+	{
+		if($this->input->is_ajax_request())
+		{
+			$typeTest = $this->input->post('param1');
+
+			if($typeTest == 1)
+			{
+				echo 'hola';
+			}elseif($typeTest == 2)
+			{
+
+			}elseif($typeTest == 3)
+			{
+
+			}
+		}
+	}
+
 	//Base para los metodos.
 	private function base($action = null)
 	{

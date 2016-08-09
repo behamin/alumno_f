@@ -43,7 +43,7 @@ class Home  extends MX_Controller {
 		//porcentaje de aciertos
 		$data['porAciertos'] = round(($data['acertadas']*100)/$data['numQuestion'],2);
 		//media de test diarios
-		$data['meAciertos'] = round($data['numTest'] / $this->session->userdata('dultcom'), 2);
+		$data['meAciertos'] = round($data['numTest'] / $this->session->userdata('created'), 2);
 		//saludo según horario
 		$h = date ("H");
 		if($h < 12)
