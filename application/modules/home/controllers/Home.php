@@ -26,6 +26,24 @@ class Home  extends MX_Controller {
 		$data['idAlumno'] = $this->idAlumno;
 		//datos del alumno
 		$data['alumno'] = $this->alumno;
+		//número de test realizados
+		$data['numTest'] = count($this->doctrine->default->getRepository("Entities\\Tests")->findBy(array("alumnoid" => $this->idAlumno)));
+		//número de pregutnasw realizadas
+		$data['numQuestion'] = count($this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findBy(
+		array("alumnoid" => $this->idAlumno)));
+		//preguntas no contestadas
+		$data['noContestadas'] = count($this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findBy(
+		array("alumnoid" => $this->idAlumno,"response" => -1)));
+		//preguntas acertadas
+		$data['acertadas'] = count($this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findBy(
+		array("alumnoid" => $this->idAlumno,"response" => 1)));
+		//preguntas no acertadas
+		$data['noAcertadas'] = count($this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findBy(
+		array("alumnoid" => $this->idAlumno,"response" => 0)));
+		//porcentaje de aciertos
+		$data['porAciertos'] = round(($data['acertadas']*100)/$data['numQuestion'],2);
+		//media de test diarios
+		$data['meAciertos'] = round($data['numTest'] / $this->session->userdata('dultcom'), 2);
 		//saludo según horario
 		$h = date ("H");
 		if($h < 12)
@@ -79,32 +97,6 @@ class Home  extends MX_Controller {
 						'js' => $this->load->view('js_module/js_module','',TRUE),
 						'css' => $this->load->view('css_module/css_module',TRUE),
 					);
-
-		switch ($action)
-		{
-
-			case 'index':
-
-				//$base['get_result'] = $this->$model->get_data(strtolower (TABLE));
-				//$base['tooltip'] = strtolower (substr(TABLE, 0, -1));
-				//$base['param'] = strtolower (TABLE);
-
-				break;
-
-			case 'add':
-
-				$base['last_id'] = $this->$model->set_data(strtolower (TABLE));
-
-				break;
-
-			case 'edit':
-
-				$base['subpage'] = 'Editar '.substr(TABLE, 0, -1);
-				$base['param'] = strtolower (TABLE);
-				//$base['testerdata'] = $this->Test_model->test_data();
-
-				break;
-		}
 
 		return $base;
 

@@ -38,6 +38,11 @@ class Alumnos
      **/
     protected $created;
 
+		/**
+     * @Column(type="datetime")
+     **/
+    protected $lastconection;
+
 	  /**
      * @OneToOne(targetEntity="Alumnosdatos", mappedBy="alumnos",cascade={"remove"})
      */
@@ -87,6 +92,17 @@ class Alumnos
     public function getAlumnosdatos()
     {
         return $this->alumnosdatos;
+    }
+
+
+		public function getLastconection()
+    {
+        return $this->lastconection;
+    }
+
+		public function setLastconection()
+    {
+        $this->lastconection = new \DateTime("now");
     }
 
 		public function setAlumnosdatos($alumnosdatos)

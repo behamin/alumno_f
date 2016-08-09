@@ -13,6 +13,7 @@ class Login extends MX_Controller
 		$this->user_exist = FALSE;
 		$this->lang = 'es';
 		$this->load->helper('MY_encrypt_helper');
+		$this->load->helper('MY_playing_dates_helper');
 		$this->load->library('session');
 		define("TABLE","Alumnos");
 	}
@@ -71,12 +72,17 @@ class Login extends MX_Controller
 					//Si todo ha ido bien, genermos la sesión
 					$session_data = array(
                    'alumno'  => $this->user_exist,
+									 'ultcon'  => $alumno->getAlumnos()->getLastconection()->format("d-m-Y"),
+									 'dultcom'  => between_dates(date("Y-m-d"),$alumno->getAlumnos()->getLastconection()->format("Y-m-d")),
 									 'cursoid' => $curso->getIdcourse(),
 									 'curso' => $curso->getTitlecourse(),
 									 'cursoDes' => $curso->getTextcourse(),
 									 'idThemes' => $curso->getIdthemes(),
                    'logged_in' => TRUE
                );
+
+					$alumno->getAlumnos()->setLastconection();
+					$this->doctrine->default->flush();
 
 					$this->session->set_userdata($session_data);
 					redirect('home');

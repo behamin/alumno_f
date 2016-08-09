@@ -21,4 +21,6 @@
 
   </div>
 
+  <input class="mc-btn btn-style-1" type="button" value="Generar test" name="submitData">
+
 </div>

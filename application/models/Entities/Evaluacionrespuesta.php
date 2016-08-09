@@ -25,6 +25,12 @@ class Evaluacionrespuesta
      * @Column(type="integer")
      * @var int
      **/
+    protected $alumnoid;
+
+		/**
+     * @Column(type="integer")
+     * @var int
+     **/
     protected $questionid;
 
 		/**
