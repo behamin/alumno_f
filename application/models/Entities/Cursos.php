@@ -39,6 +39,19 @@ class Cursos
      **/
     protected $id_themes;
 
+		/**
+     *@Column(type="integer")
+     * @var int
+     **/
+    protected $time_test;
+
+		/**
+     *@Column(type="integer")
+     * @var int
+     **/
+    protected $max_question_test;
+
+
 	 	public function getIdcourse()
     {
         return $this->id_course;
@@ -62,6 +75,16 @@ class Cursos
 		public function getTextcourse()
     {
         return $this->text_course;
+    }
+
+		public function getTimeTest()
+    {
+        return $this->time_test;
+    }
+
+		public function getMaxQuestionTest()
+    {
+        return $this->max_question_test;
     }
 
 }

@@ -5,6 +5,7 @@ class Test  extends MX_Controller {
 
 	private $lang = "";
 	private $id_alumno = null;
+	private $cursoid = null;
 
 	public function __construct()
 	{
@@ -13,6 +14,8 @@ class Test  extends MX_Controller {
 		$this->lang = 'es';
 		// almacenamos el id del alumno
 		$this->id_alumno = explode(',',$this->session->userdata('alumno'));
+		// almacenamos el id del curso
+		$this->cursoid = explode(',',$this->session->userdata('cursoid'));
 		define("TABLE","Test");
   }
 
@@ -63,9 +66,22 @@ class Test  extends MX_Controller {
 
 			if($typeTest == 1)
 			{
-				echo 'hola';
+
+				$questions = $this->doctrine->academy->getRepository("Entities\\PreguntasJoin")->getQuestionByCourses($this->cursoid);
+				$questionsList = "";
+
+				foreach ($questions as $key => $value)
+				{
+					$questionsList .= $value->getIdquestion().',';
+				}
+
+				$questionsList = trim($questionsList, ',');
+				print_r($questionsList);
+
 			}elseif($typeTest == 2)
 			{
+
+
 
 			}elseif($typeTest == 3)
 			{
@@ -91,33 +107,6 @@ class Test  extends MX_Controller {
 						'css' => $this->load->view('css_module/css_module',TRUE),
 
 					);
-
-
-		switch ($action)
-		{
-
-			case 'index':
-
-				//$base['get_result'] = $this->$model->get_data(strtolower (TABLE));
-				//$base['tooltip'] = strtolower (substr(TABLE, 0, -1));
-				//$base['param'] = strtolower (TABLE);
-
-				break;
-
-			case 'add':
-
-				$base['last_id'] = $this->$model->set_data(strtolower (TABLE));
-
-				break;
-
-			case 'edit':
-
-				$base['subpage'] = 'Editar '.substr(TABLE, 0, -1);
-				$base['param'] = strtolower (TABLE);
-				//$base['testerdata'] = $this->Test_model->test_data();
-
-				break;
-		}
 
 		return $base;
 

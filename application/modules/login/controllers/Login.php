@@ -77,6 +77,8 @@ class Login extends MX_Controller
 									 'dultcom'  => between_dates(date("Y-m-d"),$alumno->getAlumnos()->getLastconection()->format("Y-m-d")),
 									 'cursoid' => $curso->getIdcourse(),
 									 'curso' => $curso->getTitlecourse(),
+									 'maxPreguntas' => $curso->getMaxQuestionTest(),
+									 'TiempoTest' => $curso->getTimeTest(),
 									 'cursoDes' => $curso->getTextcourse(),
 									 'idThemes' => $curso->getIdthemes(),
                    'logged_in' => TRUE
