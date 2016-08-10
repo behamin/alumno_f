@@ -51,6 +51,12 @@ class Evaluacionrespuesta
      */
     private $evaluacion;
 
+		public function __construct()
+    {
+        $this->responseid = 0;
+				$this->response = -1;
+    }
+
 	 	public function getId()
     {
         return $this->id;
@@ -74,6 +80,21 @@ class Evaluacionrespuesta
 		public function getResponse()
     {
         return $this->response;
+    }
+
+		public function setEvaluacionid($evaluacionid)
+    {
+        $this->evaluacionid = $evaluacionid;
+    }
+
+		public function setAlumnoid($alumnoid)
+    {
+        $this->alumnoid = $alumnoid;
+    }
+
+		public function setQuestionid($questionid)
+    {
+        $this->questionid = $questionid;
     }
 
 }

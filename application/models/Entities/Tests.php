@@ -71,6 +71,9 @@ class Tests
 		public function __construct()
     {
         $this->createdtest = new \DateTime("now");
+				$this->is_time = 0;
+				$this->evaluation = 0;
+				$this->level_question = 0;
     }
 
 	 	public function getId()
@@ -81,6 +84,31 @@ class Tests
 		public function getCreatedtest()
     {
         return $this->createdtest;
+    }
+
+		public function setAlumnoid($alumnoid)
+    {
+        $this->alumnoid = $alumnoid;
+    }
+
+		public function setQuestionType($question_type)
+    {
+        $this->question_type = $question_type;
+    }
+
+		public function setQuestions($questions)
+    {
+        $this->questions = $questions;
+    }
+
+		public function setMinutes($minutes)
+    {
+        $this->minutes = $minutes;
+    }
+
+		public function setNumQuestion($num_question)
+    {
+        $this->num_question = $num_question;
     }
 
 }

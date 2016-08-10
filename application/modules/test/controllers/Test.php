@@ -6,16 +6,22 @@ class Test  extends MX_Controller {
 	private $lang = "";
 	private $id_alumno = null;
 	private $cursoid = null;
+	private $maxPreguntas = null;
+	private $TiempoTest = null;
 
 	public function __construct()
 	{
 
     parent::__construct();
 		$this->lang = 'es';
-		// almacenamos el id del alumno
+		//almacenamos el id del alumno
 		$this->id_alumno = explode(',',$this->session->userdata('alumno'));
 		// almacenamos el id del curso
 		$this->cursoid = explode(',',$this->session->userdata('cursoid'));
+		//almacenamos max de preguntas del curso
+		$this->maxPreguntas = explode(',',$this->session->userdata('maxPreguntas'));
+		//almacenamos el tiempo máximo para realizar el test
+		$this->TiempoTest = explode(',',$this->session->userdata('TiempoTest'));
 		define("TABLE","Test");
   }
 
@@ -67,16 +73,7 @@ class Test  extends MX_Controller {
 			if($typeTest == 1)
 			{
 
-				$questions = $this->doctrine->academy->getRepository("Entities\\PreguntasJoin")->getQuestionByCourses($this->cursoid);
-				$questionsList = "";
-
-				foreach ($questions as $key => $value)
-				{
-					$questionsList .= $value->getIdquestion().',';
-				}
-
-				$questionsList = trim($questionsList, ',');
-				print_r($questionsList);
+				$questions = $this->doctrine->academy->getRepository("Entities\\PreguntasJoin")->getQuestionByCourses($this->cursoid[0],$this->maxPreguntas[0]);
 
 			}elseif($typeTest == 2)
 			{
@@ -87,6 +84,52 @@ class Test  extends MX_Controller {
 			{
 
 			}
+
+			//creamos la variable donde vamos a crear el string separados por una coma con la lista
+			//de todas las preguntas que compondrán el test
+			$questionsList = "";
+
+			foreach ($questions as $key => $value)
+			{
+				$questionsList .= $value->getIdquestion().',';
+			}
+			//eliminamos la última coma del string
+			$questionsList = trim($questionsList, ',');
+
+			//creamos una instancia de la entidad Tests
+			$test = new Entities\Tests;
+			//establecemos las propiedades a través de los setters
+			$test->setAlumnoid($this->id_alumno[0]);
+			$test->setQuestions($questionsList);
+			$test->setMinutes($this->TiempoTest[0]);
+			$test->setNumQuestion($this->maxPreguntas[0]);
+			$test->setQuestionType($typeTest);
+			//y guardamos la entidad en su tabla
+			$this->doctrine->default->persist($test);
+			$this->doctrine->default->flush();
+
+			//creamos una instancia de la entidad Evaluacion
+			$evaluacion = new Entities\Evaluacion;
+			//establecemos las propiedades a través de los setters
+			$evaluacion->setTestid($test->getId());
+			//y guardamos la entidad en su tabla
+			$this->doctrine->default->persist($evaluacion);
+			$this->doctrine->default->flush();
+
+			//creamos una instancia de la entidad Evaluacionrespuesta
+			$evaluacionR = new Entities\Evaluacionrespuesta;
+
+			foreach ($questions as $key => $value)
+			{
+				//establecemos las propiedades a través de los setters
+				$evaluacionR->setEvaluacionid($evaluacion->getId());
+				$evaluacionR->setAlumnoid($this->id_alumno[0]);
+				$evaluacionR->setQuestionid($value->getIdquestion());
+				//y guardamos la entidad en su tabla
+				$this->doctrine->default->persist($evaluacionR);
+				$this->doctrine->default->flush();
+			}
+
 		}
 	}
 
