@@ -82,9 +82,9 @@ class Evaluacionrespuesta
         return $this->response;
     }
 
-		public function setEvaluacionid($evaluacionid)
+		public function setEvaluacionid(Evaluacion $evaluacion)
     {
-        $this->evaluacionid = $evaluacionid;
+        $this->evaluacion = $evaluacion;
     }
 
 		public function setAlumnoid($alumnoid)

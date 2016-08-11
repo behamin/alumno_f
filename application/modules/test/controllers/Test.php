@@ -107,6 +107,8 @@ class Test  extends MX_Controller {
 			//y guardamos la entidad en su tabla
 			$this->doctrine->default->persist($test);
 			$this->doctrine->default->flush();
+			//guardamos el test id
+			$testId = $test->getId();
 
 			//creamos una instancia de la entidad Evaluacion
 			$evaluacion = new Entities\Evaluacion;
@@ -115,14 +117,16 @@ class Test  extends MX_Controller {
 			//y guardamos la entidad en su tabla
 			$this->doctrine->default->persist($evaluacion);
 			$this->doctrine->default->flush();
-
-			//creamos una instancia de la entidad Evaluacionrespuesta
-			$evaluacionR = new Entities\Evaluacionrespuesta;
+			//guardamos el evaluacion id
+			$evalId = $evaluacion->getId();
 
 			foreach ($questions as $key => $value)
 			{
+				//creamos una instancia de la entidad Evaluacionrespuesta
+				$evaluacionR = new Entities\Evaluacionrespuesta;
+				$evaluacion_ = $this->doctrine->default->find("Entities\\Evaluacion", $evaluacion->getId());
 				//establecemos las propiedades a través de los setters
-				$evaluacionR->setEvaluacionid($evaluacion->getId());
+				$evaluacionR->setEvaluacionid($evaluacion_);
 				$evaluacionR->setAlumnoid($this->id_alumno[0]);
 				$evaluacionR->setQuestionid($value->getIdquestion());
 				//y guardamos la entidad en su tabla
@@ -130,8 +134,19 @@ class Test  extends MX_Controller {
 				$this->doctrine->default->flush();
 			}
 
+			//redireccionamos al test generado para su realización
+			echo 'test/unitary/'.$testId.'/'.$evalId.'/1';
+			
 		}
 	}
+
+	public function unitary($testId,$evalId,$q)
+	{
+
+		$data = $this->base(__FUNCTION__);
+		$this->load->view('layout', $data);
+
+ 	}
 
 	//Base para los metodos.
 	private function base($action = null)
