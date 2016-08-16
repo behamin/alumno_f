@@ -40,7 +40,7 @@ class Test  extends MX_Controller {
 
 		$data = $this->base(__FUNCTION__);
 		//pasamos el título para el nav_top, en este caso el título del tema
-		$data['titleNavtop'] = 'Test nº '.$id;
+		$data['titleNavtop'] = utf8_decode('Test nº '.$id);
 		//obtenemos los datos del test y su resultado desde la tabla evaluación
 		$data['test'] = $this->doctrine->default->getRepository("Entities\\Evaluacion")->findOneBy(array("testid" => $id));
 		//creamos un array donde almacenamos el número total de preguntas no contestadas, acertadas y no acertadas.
@@ -136,14 +136,40 @@ class Test  extends MX_Controller {
 
 			//redireccionamos al test generado para su realización
 			echo 'test/unitary/'.$testId.'/'.$evalId.'/1';
-			
+
 		}
 	}
 
-	public function unitary($testId,$evalId,$q)
+	public function unitary($testId,$evalId,$p)
 	{
 
 		$data = $this->base(__FUNCTION__);
+		//extraemos los datos del TestActions
+		$data['testId'] = $testId;
+		$data['evalId'] = $evalId;
+		$data['page'] = $p;
+
+		//generamos array con el abecedario
+		$abc = array();
+		for ($i=65;$i<=90;$i++) {
+		  $abc[] = chr($i);
+		}
+		$data['abc'] = $abc;
+
+		$test = $this->doctrine->default->getRepository("Entities\\Tests")->findOneBy(array("id" => $testId));
+		//creamos un array con la lista de preguntas y hacemos un count sobre el
+		$numtest = explode(',',$test->getQuestions());
+		$data['numtest'] = count($numtest);
+		//pasamos el título para el nav_top, en este caso el número del test que estámos realizando
+		$data['titleNavtop'] = utf8_decode('Test nº '.$testId);
+		//extraemos el id de la pregunta que corresponde según su @evalId y su número de página @p
+		$questionId = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->getOneQuestionTest($evalId,$p);
+		//Extraemos el enunciado de la pregunta y lo almacenamos para pasarlo a la vista
+		$question = $this->doctrine->academy->getRepository("Entities\\Preguntas")->findOneBy(array("id_question" => $questionId->getQuestionid()));
+		$data['question'] =  utf8_encode($question->getQuestion());
+		//extraemos las posibles respuestas, almacenamos y pasamos a la vista
+		$data['responses'] = $this->doctrine->academy->getRepository("Entities\\Respuestas")->findBy(array("id_question" => $questionId->getQuestionid()));
+
 		$this->load->view('layout', $data);
 
  	}

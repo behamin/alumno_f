@@ -14,10 +14,22 @@ class PreguntasRepositorio extends EntityRepository
      */
     public function getQuestionByCourses($id,$maxPreguntas)
     {
-      $max = $this->_em->createQuery("SELECT MAX(u.id) FROM Entities\\PreguntasJoin u WHERE u.id_join = $id AND u.table_join = 'courses'")->getSingleScalarResult();;
+      $max = $this->_em->createQuery("SELECT MAX(u.id) FROM Entities\\PreguntasJoin u WHERE u.id_join = $id AND u.table_join = 'courses'")->getSingleScalarResult();
 			$query = $this->_em->createQuery("SELECT u FROM Entities\\PreguntasJoin u WHERE u.id_join = $id AND u.table_join = 'courses' AND u.id >= :random")
       ->setParameter('random', rand(0,$max))
       ->setMaxResults($maxPreguntas);
 			return $query->getResult();
+    }
+
+    /**
+     * @return row
+     */
+    public function getOneQuestionTest($id,$pag)
+    {
+
+			$query = $this->_em->createQuery("SELECT u FROM Entities\\Evaluacionrespuesta u WHERE u.evaluacionid = $id")
+      ->setFirstResult($pag - 1)
+      ->setMaxResults(1);
+			return $query->getSingleResult();
     }
 }

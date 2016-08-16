@@ -2,7 +2,7 @@
 namespace Entities;
 
 /**
-* @Entity
+	*@Entity(repositoryClass="Repositories\PreguntasRepositorio")
  * @Table(name="evaluacionrespuestas")
  */
 

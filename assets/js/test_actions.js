@@ -33,9 +33,8 @@ var TestActions = {
       var type = 'POST';
       var url = site_url+'/test/generated';
     	var data = {'param1':param1,'param2':param2};
-			ActionAjax(type,url,data,null,null,false,false);
 			var returndata = ActionAjax(type,url,data,null,null,true,false);
-			window.locationf= base_url+returndata;
+			window.location = returndata;
 
     });
 
