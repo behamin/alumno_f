@@ -157,6 +157,7 @@ class Test  extends MX_Controller {
 		$data['abc'] = $abc;
 
 		$test = $this->doctrine->default->getRepository("Entities\\Tests")->findOneBy(array("id" => $testId));
+		$data['testEvaluation'] = $test->getEvaluation();
 		//creamos un array con la lista de preguntas y hacemos un count sobre el
 		$numtest = explode(',',$test->getQuestions());
 		$data['numtest'] = count($numtest);
@@ -164,8 +165,12 @@ class Test  extends MX_Controller {
 		$data['titleNavtop'] = utf8_decode('Test nº '.$testId);
 		//extraemos el id de la pregunta que corresponde según su @evalId y su número de página @p
 		$questionId = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->getOneQuestionTest($evalId,$p);
+		//almacenamos y pasamos a la vista el id de la respuesta lamacenada en la evaluación. Nota: si es 0 es no contestada
+		$data['responseId'] = $questionId->getResponseid();
 		//Extraemos el enunciado de la pregunta y lo almacenamos para pasarlo a la vista
 		$question = $this->doctrine->academy->getRepository("Entities\\Preguntas")->findOneBy(array("id_question" => $questionId->getQuestionid()));
+		//pasamos el question id a la vista
+		$data['quId'] = $questionId->getQuestionid();
 		$data['question'] =  utf8_encode($question->getQuestion());
 		//extraemos las posibles respuestas, almacenamos y pasamos a la vista
 		$data['responses'] = $this->doctrine->academy->getRepository("Entities\\Respuestas")->findBy(array("id_question" => $questionId->getQuestionid()));
@@ -174,6 +179,37 @@ class Test  extends MX_Controller {
 
  	}
 
+	public function get_response()
+	{
+		if($this->input->is_ajax_request())
+		{
+			$evaluacionId = $this->input->post('evaluacionId');
+			$questionId = $this->input->post('questionId');
+			$value = $this->input->post('value');
+			//obtenemos el usuario
+			$response = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findOneBy(array("evaluacionid" => $evaluacionId,"questionid" => $questionId));
+			//seteamos y actualizamos
+			$response->setResponseid($value);
+			$this->doctrine->default->flush();
+
+		}
+	}
+
+	public function evaluation_test()
+	{
+		if($this->input->is_ajax_request())
+		{
+			$evaluacionId = $this->input->post('evaluacionId');
+			//obtenemos el usuario
+			$responses = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->getResponseByEvaluation($evaluacionId);
+
+			foreach ($responses as $key => $value)
+			{
+				echo $value->getResponseid().',';
+			}
+
+		}
+	}
 	//Base para los metodos.
 	private function base($action = null)
 	{

@@ -10,7 +10,27 @@
 
         <div class="btn-group" aria-label="Third group" role="group">
 
-          <a href="<?= site_url('test/unitary/'.$testId.'/'.$evalId.'/'.$i) ?>" style="background:red; color:#fff;" class="btn btn-default"><?= $i ?></a>
+          <a href="<?= site_url('test/unitary/'.$testId.'/'.$evalId.'/'.$i) ?>"
+
+            <?php $thisResponse = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->getOneQuestionTest($evalId,$i) ?>
+
+            <?php if($i == $page): ?>
+
+              style="background:#666; color:#fff;"
+
+            <?php elseif($thisResponse->getResponseid() > 0): ?>
+
+              style="background:#37abf2; color:#fff;"
+
+            <?php else: ?>
+
+              style="background:red; color:#fff;"
+
+            <?php endif ?>
+
+            class="btn btn-default">
+
+          <?= $i ?></a>
 
         </div>
 

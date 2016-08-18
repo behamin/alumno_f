@@ -91,6 +91,11 @@ class Tests
         return $this->questions;
     }
 
+		public function getEvaluation()
+    {
+        return $this->evaluation;
+    }
+
 		public function setAlumnoid($alumnoid)
     {
         $this->alumnoid = $alumnoid;

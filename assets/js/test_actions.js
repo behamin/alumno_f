@@ -40,7 +40,60 @@ var TestActions = {
 
   },
 
+	GetResponse : function(){
+
+    $('input[name="response"]').click(function(){
+
+			$('.modal').show();
+			$('.content-preload').text('Guardando tu respuesta...');
+
+      var value = $(this).val();
+			var evaluacionId = $(this).attr('evalId');
+			var questionId = $(this).attr('quId');
+
+      var type = 'POST';
+      var url = site_url+'/test/get_response';
+    	var data = {'value':value,'evaluacionId':evaluacionId,'questionId':questionId};
+			ActionAjax(type,url,data,null,null,false,false);
+
+			setTimeout(function(){
+
+				$('.modal').hide();
+				$('.content-preload').text('');
+
+			}, 2000);
+
+    });
+
+  },
+
+	EndTest : function(){
+
+    $('.endTest').click(function(){
+
+			$('.modal').show();
+			$('.content-preload').text('Estamos corrgiendo tu Test. Un momento por favor.');
+
+			var evaluacionId = $(this).attr('evalId');
+      var type = 'POST';
+      var url = site_url+'/test/evaluation_test';
+    	var data = {'evaluacionId':evaluacionId};
+			ActionAjax(type,url,data,null,null,false,false);
+
+			setTimeout(function(){
+
+				$('.modal').hide();
+				$('.content-preload').text('');
+
+			}, 2000);
+
+    });
+
+  },
+
 }
 
 $(window).load(TestActions.TipoTest);
 $(window).load(TestActions.GeneratedTest);
+$(window).load(TestActions.GetResponse);
+$(window).load(TestActions.EndTest);

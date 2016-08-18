@@ -97,4 +97,9 @@ class Evaluacionrespuesta
         $this->questionid = $questionid;
     }
 
+		public function setResponseid($responseid)
+    {
+        $this->responseid = $responseid;
+    }
+
 }

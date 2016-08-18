@@ -8,7 +8,7 @@ Test unitario a realizar
   <?php foreach ($responses as $key => $value): ?>
 
     <label>
-      <input type="radio" value="1" class="testType" name="testType">
+      <input <?php if($responseId == $value->getIdresponse() ) echo 'checked' ?> type="radio" value="<?= $value->getIdresponse() ?>" evalId="<?= $evalId ?>" quId="<?= $quId ?>" class="testType" name="response">
       <?= $abc[$key].'. '.utf8_encode($value->getResponse()) ?>
     </label><br/>
 
@@ -28,7 +28,7 @@ Test unitario a realizar
 
   <?php if($page == $numtest): ?>
 
-    <a class="submit mc-btn btn-style-1">Finalizar test</a>
+    <a evalId="<?= $evalId ?>" class="submit mc-btn btn-style-1 endTest">Finalizar test</a>
 
   <?php endif ?>
 

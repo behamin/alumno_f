@@ -32,4 +32,14 @@ class PreguntasRepositorio extends EntityRepository
       ->setMaxResults(1);
 			return $query->getSingleResult();
     }
+
+    /**
+     * @return row
+     */
+    public function getResponseByEvaluation($id)
+    {
+
+			$query = $this->_em->createQuery("SELECT u FROM Entities\\Evaluacionrespuesta u WHERE u.evaluacionid = $id AND u.responseid > 0");
+			return $query->getResult();
+    }
 }
