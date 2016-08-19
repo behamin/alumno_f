@@ -8568,3 +8568,13 @@ h3.title-chapter{
   font-size: 18px;
   font-weight: bold;
 }
+.clock{
+  border-bottom: 1px solid #11538c;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  color:#666;
+}
+.clock .fa-clock-o{
+  color: #11538c;
+  font-size: 25px;
+}

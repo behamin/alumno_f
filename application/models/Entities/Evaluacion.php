@@ -34,6 +34,7 @@ class Evaluacion
 		public function __construct()
     {
         $this->dateeval = new \DateTime("now");
+				$this->evaluacionrespuestas = new ArrayCollection();
     }
 
 	 	public function getId()
@@ -53,13 +54,7 @@ class Evaluacion
 
 		public function getEvaluacionrespuestas()
     {
-				//$this->evaluacionrespuestas = new ArrayCollection();
         return $this->evaluacionrespuestas->toArray();
-    }
-
-		public function setTestid($testid)
-    {
-        $this->testid = $testid;
     }
 
 }

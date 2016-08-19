@@ -1,6 +1,10 @@
 <!--
 Test unitario a realizar
 -->
+<div class="clock">
+  <i class="fa fa-clock-o" aria-hidden="true"></i> <strong>Tiempo restante: <?= $time_now ?> minutos</strong>
+</div>
+
 <h4 style="font-size:18px; margin-bottom:15px;" class="sm black bold"><?= $question ?></h4>
 
 <div class="table-student-submission">
@@ -28,7 +32,7 @@ Test unitario a realizar
 
   <?php if($page == $numtest): ?>
 
-    <a evalId="<?= $evalId ?>" class="submit mc-btn btn-style-1 endTest">Finalizar test</a>
+    <a evalId="<?= $evalId ?>" testId="<?= $testId ?>" timeR="<?= $time_now ?>"  class="submit mc-btn btn-style-1 endTest">Finalizar test</a>
 
   <?php endif ?>
 

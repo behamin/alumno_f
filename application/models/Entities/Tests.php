@@ -96,6 +96,11 @@ class Tests
         return $this->evaluation;
     }
 
+		public function getMinutes()
+    {
+        return $this->minutes;
+    }
+
 		public function setAlumnoid($alumnoid)
     {
         $this->alumnoid = $alumnoid;
@@ -120,5 +125,12 @@ class Tests
     {
         $this->num_question = $num_question;
     }
+
+		public function setEvaluation($evaluation)
+    {
+        $this->evaluation = $evaluation;
+    }
+
+
 
 }

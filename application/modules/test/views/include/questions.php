@@ -30,14 +30,14 @@ las preguntas correctas en caso necesario.
 
                   <td class="td-quest">
                     <!-- imprimimos la preguntas -->
-                    <?= $question->getQuestion() ?><br/>
+                    <?= utf8_encode($question->getQuestion()) ?><br/>
 
                     <?php if($value->getResponseid() == 0): ?>
                       <!-- si no hemos respondido la pregunta, consultamos la la entidad respuesta e imprimimos la respuesta -->
                       <?php
                         $response = $this->doctrine->academy->getRepository("Entities\\Respuestas")->findOneBy(
                         array("id_question" => $question->getIdquestion(),"ok_response"  => 1));
-                        echo '<span style="color: #ffde3a;">R.'.$response->getResponse().'</span>';
+                        echo '<span style="color: #ffde3a;">R.'.utf8_encode($response->getResponse()).'</span>';
                       ?>
 
                     <?php else: ?>
@@ -51,7 +51,7 @@ las preguntas correctas en caso necesario.
                         <?php
                           $response = $this->doctrine->academy->getRepository("Entities\\Respuestas")->findOneBy(
                           array("id_response" => $value->getResponseid()));
-                          echo '<span style="color: #37abf2;">R.'.$response->getResponse().'</span>';
+                          echo '<span style="color: #37abf2;">R.'.utf8_encode($response->getResponse()).'</span>';
                         ?>
 
                       <?php else: ?>
@@ -59,13 +59,13 @@ las preguntas correctas en caso necesario.
                         <?php
                           $response = $this->doctrine->academy->getRepository("Entities\\Respuestas")->findOneBy(
                           array("id_response" => $value->getResponseid()));
-                          echo '<span style="color: #d93425;">R.'.$response->getResponse().'</span><br/>';
+                          echo '<span style="color: #d93425;">R.'.utf8_encode($response->getResponse()).'</span><br/>';
                         ?>
 
                         <?php
                           $response = $this->doctrine->academy->getRepository("Entities\\Respuestas")->findOneBy(
                           array("id_question" => $question->getIdquestion(),"ok_response"  => 1));
-                          echo '<span style="color: #37abf2;">R.'.$response->getResponse().'</span>';
+                          echo '<span style="color: #37abf2;">R.'.utf8_encode($response->getResponse()).'</span>';
                         ?>
 
                       <?php endif ?>

@@ -32,7 +32,7 @@
 
           <div class="create-course-content">
 
-            <div style="margin-top:20px;" class="alert alert-danger" role="alert"><strong>¡Upss!</strong> Lo sentimos pero no tienes acceso para realizar este test</div>
+            <div style="margin-top:20px;" class="alert alert-danger" role="alert"><strong>¡Upss!</strong> Lo sentimos pero no tienes permisos para realizar este test</div>
 
           </div>
 

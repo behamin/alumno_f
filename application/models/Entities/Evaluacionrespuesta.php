@@ -102,4 +102,9 @@ class Evaluacionrespuesta
         $this->responseid = $responseid;
     }
 
+		public function setResponse($response)
+    {
+        $this->response = $response;
+    }
+
 }

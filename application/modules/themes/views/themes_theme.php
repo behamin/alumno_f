@@ -22,7 +22,7 @@
 
                           <tr class="new">
 
-                              <td class="submissions"><a href="<?= site_url('themes/chapter/'.$id.'/'.$value->getIdthemeparts()) ?>"><?= $value->getTitlethemeparts() ?></a></td>
+                              <td class="submissions"><a href="<?= site_url('themes/chapter/'.$id.'/'.$value->getIdthemeparts()) ?>"><?= utf8_encode($value->getTitlethemeparts()) ?></a></td>
 
                           </tr>
 

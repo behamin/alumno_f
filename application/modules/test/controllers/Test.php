@@ -30,7 +30,7 @@ class Test  extends MX_Controller {
 
 		$data = $this->base(__FUNCTION__);
 		//Obtenemos el listado de test realizados.
-		$data['tests'] = $this->doctrine->default->getRepository("Entities\\Tests")->findBy(array("alumnoid" => $this->id_alumno));
+		$data['tests'] = $this->doctrine->default->getRepository("Entities\\Tests")->findBy(array("alumnoid" => $this->id_alumno,"evaluation" => 1));
 		$this->load->view('layout', $data);
 
  	}
@@ -151,13 +151,23 @@ class Test  extends MX_Controller {
 
 		//generamos array con el abecedario
 		$abc = array();
-		for ($i=65;$i<=90;$i++) {
+		for ($i=65;$i<=90;$i++)
+		{
 		  $abc[] = chr($i);
 		}
 		$data['abc'] = $abc;
 
 		$test = $this->doctrine->default->getRepository("Entities\\Tests")->findOneBy(array("id" => $testId));
 		$data['testEvaluation'] = $test->getEvaluation();
+		//extraemos los datos básicos de la evaluación
+		$evaluation = $this->doctrine->default->getRepository("Entities\\Evaluacion")->find($evalId);
+		//Creamos dos varialbes, @tStart guardara cuando comenzamos el test y @tNow que almacena la fecha y hora actual
+		$tStart = $evaluation->getDateeval()->format("Y-m-d H:i:s");
+		$tNow = date("Y-m-d H:i:s");
+		//Calculamos cuantos minutos han pasado
+		$minuts = ceil((strtotime($tNow) - strtotime($tStart)) / 60);
+		//restamos los minutos pasados al total de minutos para la realización del test y obtenemos cuanto tiempo nos queda
+		$data['time_now'] = $test->getMinutes() - $minuts;
 		//creamos un array con la lista de preguntas y hacemos un count sobre el
 		$numtest = explode(',',$test->getQuestions());
 		$data['numtest'] = count($numtest);
@@ -200,13 +210,41 @@ class Test  extends MX_Controller {
 		if($this->input->is_ajax_request())
 		{
 			$evaluacionId = $this->input->post('evaluacionId');
-			//obtenemos el usuario
+			$testId = $this->input->post('testId');
+			$timeR = $this->input->post('timeR');
+			$timeT = $this->TiempoTest[0];
+			//las respuestas contestadas
 			$responses = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->getResponseByEvaluation($evaluacionId);
 
 			foreach ($responses as $key => $value)
 			{
-				echo $value->getResponseid().',';
+
+				$response = $this->doctrine->academy->getRepository("Entities\\Respuestas")->findOneBy(array("id_question" => $value->getQuestionid(),"id_response" => $value->getResponseid()));
+				$eval = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->findOneBy(array("evaluacionid" => $evaluacionId,"questionid" => $value->getQuestionid()));
+				//seteamos y actualizamos, de esta forma evaluamos si la respuesta es correcta o no
+				$eval->setResponse($response->getOkresponse());
+				$this->doctrine->default->flush();
+
 			}
+
+			$test = $this->doctrine->default->getRepository("Entities\\Tests")->find($testId);
+			//seteamos y actualizamos, ahora este test ya no será posible volver acceder a el para realizarlo.
+			$test->setEvaluation(1);
+			$this->doctrine->default->flush();
+
+			//almacenamos los tiempos en la entidad Evaluationtime
+			//creamos una instancia de la entidad Evaluationtime
+    	$evaltime = new Entities\Evaluaciontime;
+			//establecemos las propiedades a través de los setters
+    	$evaltime->setEvaluacionid($evaluacionId);
+    	$evaltime->setTime($timeR);
+    	$evaltime->setTotaltime($timeT);
+			//guardamos la entidad en su tabla
+    	$this->doctrine->default->persist($evaltime);
+    	$this->doctrine->default->flush();
+
+			//redireccionamos al test generado para su realización
+			echo site_url('test/numtest/'.$testId);
 
 		}
 	}

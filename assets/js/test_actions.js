@@ -75,15 +75,20 @@ var TestActions = {
 			$('.content-preload').text('Estamos corrgiendo tu Test. Un momento por favor.');
 
 			var evaluacionId = $(this).attr('evalId');
+			var testId = $(this).attr('testId');
+			var timeR = $(this).attr('timeR');
+
+
       var type = 'POST';
       var url = site_url+'/test/evaluation_test';
-    	var data = {'evaluacionId':evaluacionId};
-			ActionAjax(type,url,data,null,null,false,false);
+    	var data = {'evaluacionId':evaluacionId,'testId':testId,'timeR':timeR};
+			var returndata = ActionAjax(type,url,data,null,null,true,false);
 
 			setTimeout(function(){
 
 				$('.modal').hide();
 				$('.content-preload').text('');
+				window.location.href = returndata;
 
 			}, 2000);
 

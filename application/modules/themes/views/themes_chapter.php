@@ -14,7 +14,7 @@
 
               <div class="table-student-submission">
 
-                  <h3 class="title-chapter"><?= $capitulo->getTitlethemeparts() ?></h3>
+                  <h3 class="title-chapter"><?= utf8_encode($capitulo->getTitlethemeparts()) ?></h3>
 
                   <div class="text-chapter">
 
