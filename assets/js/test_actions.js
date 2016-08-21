@@ -10,12 +10,36 @@ var TestActions = {
         if(type == 1 || type == 3){
 
           $("#gTest").show();
+					$("#themes").hide();
           $("#typeQuestion").hide();
 
         }else if(type == 2){
 
           $("#gTest").hide();
           $("#typeQuestion").show();
+
+        }
+
+		});
+
+  },
+
+	TipoQt : function(){
+
+		$('.typeQ').click(function(){
+
+	      var type = $(this).val();
+        $('input[name="param2"]').val($(this).val());
+
+        if(type == 1){
+
+          $("#gTest").show();
+          $("#themes").show();
+
+        }else if(type == 2){
+
+          $("#gTest").hide();
+          $("#themes").show();
 
         }
 
@@ -100,5 +124,6 @@ var TestActions = {
 
 $(window).load(TestActions.TipoTest);
 $(window).load(TestActions.GeneratedTest);
+$(window).load(TestActions.TipoQt);
 $(window).load(TestActions.GetResponse);
 $(window).load(TestActions.EndTest);

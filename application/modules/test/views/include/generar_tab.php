@@ -5,5 +5,7 @@
 
   <?php $this->load->view('include/tipo_test') ?>
   <?php $this->load->view('include/tipos_question') ?>
+  <?php $this->load->view('include/temas') ?>
+  <?php $this->load->view('include/tests') ?>
 
 </div>

@@ -5,12 +5,12 @@
   <div class="radio">
 
     <label>
-      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+      <input type="radio" name="optionsRadios" id="optionsRadios1" class="typeQ" value="1">
       Todas
     </label>
 
     <label>
-      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+      <input type="radio" name="optionsRadios" id="optionsRadios1" class="typeQ" value="2">
       Test escuela
     </label>
 

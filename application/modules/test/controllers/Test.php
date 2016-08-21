@@ -22,6 +22,8 @@ class Test  extends MX_Controller {
 		$this->maxPreguntas = explode(',',$this->session->userdata('maxPreguntas'));
 		//almacenamos el tiempo máximo para realizar el test
 		$this->TiempoTest = explode(',',$this->session->userdata('TiempoTest'));
+		// almacenamos en formato array los temas asociados
+		$this->idTemas = explode(',',$this->session->userdata('idThemes'));
 		define("TABLE","Test");
   }
 
@@ -31,6 +33,12 @@ class Test  extends MX_Controller {
 		$data = $this->base(__FUNCTION__);
 		//Obtenemos el listado de test realizados.
 		$data['tests'] = $this->doctrine->default->getRepository("Entities\\Tests")->findBy(array("alumnoid" => $this->id_alumno,"evaluation" => 1));
+		//almacenamos los temas del alumno
+		$data['temas'] = array();
+		foreach ($this->idTemas as $key => $value)
+		{
+				$data['temas'][$key] = $this->doctrine->academy->find("Entities\\Temas", $value);
+		}
 		$this->load->view('layout', $data);
 
  	}
