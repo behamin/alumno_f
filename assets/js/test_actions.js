@@ -30,6 +30,7 @@ var TestActions = {
 
 	      var type = $(this).val();
         $('input[name="param2"]').val($(this).val());
+				$('input[name="themeBox[]"]:checked').prop('checked', false);
 
         if(type == 1){
 
@@ -47,12 +48,40 @@ var TestActions = {
 
   },
 
+	Theme : function(){
+
+		$('.theme').click(function(){
+
+				var param2 = $('input[name="param2"]').val();
+				var checkboxValues = "";
+				$('input[name="themeBox[]"]:checked').each(function() {
+						checkboxValues += $(this).val() + ",";
+				});
+				checkboxValues = checkboxValues.substring(0, checkboxValues.length-1);
+				$('input[name="param3"]').val(checkboxValues);
+
+				if(param2 == 2){
+
+					var type = 'POST';
+		      var url = site_url+'/test/get_tests';
+		    	var data = {'checkboxValues':checkboxValues};
+					var returndata = ActionAjax(type,url,data,null,null,true,false);
+					$("select.id_test").html(returndata);
+					$("#tList").show();
+
+				}
+
+		});
+
+  },
+
   GeneratedTest : function(){
 
     $('#gTest').click(function(){
 
       var param1 = $('input[name="param1"]').val();
       var param2 = $('input[name="param2"]').val();
+			var param3 = $('input[name="param3"]').val();
 
       var type = 'POST';
       var url = site_url+'/test/generated';
@@ -125,5 +154,6 @@ var TestActions = {
 $(window).load(TestActions.TipoTest);
 $(window).load(TestActions.GeneratedTest);
 $(window).load(TestActions.TipoQt);
+$(window).load(TestActions.Theme);
 $(window).load(TestActions.GetResponse);
 $(window).load(TestActions.EndTest);

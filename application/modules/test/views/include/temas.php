@@ -7,7 +7,7 @@
     <?php foreach ($temas as $key => $value): ?>
 
       <label>
-        <input type="checkbox" name="optionsCheckbox" id="optionsCheckbox" value="option1">
+        <input class="theme" type="checkbox" name="themeBox[]" id="optionsCheckbox" value="<?= $value->getIdtheme() ?>">
         <?= utf8_encode($value->getTitletheme()) ?>
       </label>
 

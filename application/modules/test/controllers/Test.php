@@ -77,6 +77,8 @@ class Test  extends MX_Controller {
 		if($this->input->is_ajax_request())
 		{
 			$typeTest = $this->input->post('param1');
+			$typeQu = $this->input->post('param2');
+			$theme = $this->input->post('param3');
 
 			if($typeTest == 1)
 			{
@@ -86,7 +88,15 @@ class Test  extends MX_Controller {
 			}elseif($typeTest == 2)
 			{
 
+				if($typeQu == 1)
+				{
 
+					echo 'typeq1';
+
+				}elseif($typeQu == 2)
+				{
+					echo 'typeq2';
+				}
 
 			}elseif($typeTest == 3)
 			{
@@ -209,6 +219,38 @@ class Test  extends MX_Controller {
 			//seteamos y actualizamos
 			$response->setResponseid($value);
 			$this->doctrine->default->flush();
+
+		}
+	}
+
+	public function get_tests()
+	{
+		if($this->input->is_ajax_request())
+		{
+			//almacenamos la cadena con los temas seleccionados
+			$tList = $this->input->post('checkboxValues');
+			$tests = array();
+			$options = '<option value="0">Selecciona un test</option>';
+			//lo convertimos en un array
+			$tList = explode(',',$tList);
+			//recorremos el array para consultar y extraer todos los
+			foreach ($tList as $key => $value)
+			{
+				$tests[] = $this->doctrine->academy->getRepository("Entities\\TestsEs")->findBy(array("id_theme_part" => $value));
+			}
+
+			foreach ($tests as $key => $test)
+			{
+				foreach ($test as $key => $value)
+				{
+
+					$options .= '<option value="'.$value->getIdtest().'">'.$value->getnametest().'</option>';
+
+				}
+
+			}
+
+			echo utf8_encode($options);
 
 		}
 	}
