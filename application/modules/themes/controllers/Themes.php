@@ -19,8 +19,9 @@ class Themes  extends MX_Controller {
 	public function index()
 	{
 
-		$data = $this->base(__FUNCTION__);
-
+		//establecemos @tree a  null ya que no aquí no necesitamos el menu para navegar por los capítulos
+		$tree['tree'] = null;
+		$data = $this->base(__FUNCTION__,$tree);
 		//almacenamos los temas del alumno
 		$data['temas'] = array();
 		foreach ($this->idTemas as $key => $value)
@@ -63,7 +64,7 @@ class Themes  extends MX_Controller {
 		if($idT > 0 AND $idC > 0)
 		{
 			//pasamos el menú
-			$tree['tree'] = $this->tree($id);
+			$tree['tree'] = $this->tree($idT);
 			$data = $this->base(__FUNCTION__,$tree);
 			//Obtenemos los datos del tema
 			$tema = $this->doctrine->academy->find("Entities\\Temas", $idT);
@@ -95,7 +96,7 @@ class Themes  extends MX_Controller {
 			foreach ($chap as $key => $value)
 			{
 				$tree .= "{";
-				$tree .= "text: '".$value->getTitlethemeparts()."',";
+				$tree .= "text: '".utf8_encode($value->getTitlethemeparts())."',";
 				$tree .= "href: '#parent1',";
 
 				if($chap_ = $this->tree($id,$value->getIdthemeparts()) != null)

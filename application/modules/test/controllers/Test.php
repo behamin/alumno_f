@@ -79,11 +79,19 @@ class Test  extends MX_Controller {
 			$typeTest = $this->input->post('param1');
 			$typeQu = $this->input->post('param2');
 			$theme = $this->input->post('param3');
+			$test = $this->input->post('param4');
+			//creamos la variable donde vamos a crear el string separados por una coma con la lista
+			//de todas las preguntas que compondrán el test
+			$questionsList = "";
 
 			if($typeTest == 1)
 			{
 
 				$questions = $this->doctrine->academy->getRepository("Entities\\PreguntasJoin")->getQuestionByCourses($this->cursoid[0],$this->maxPreguntas[0]);
+				foreach ($questions as $key => $value)
+				{
+					$questionsList .= $value.',';
+				}
 
 			}elseif($typeTest == 2)
 			{
@@ -95,22 +103,23 @@ class Test  extends MX_Controller {
 
 				}elseif($typeQu == 2)
 				{
-					echo 'typeq2';
+					$questions = $this->doctrine->academy->getRepository("Entities\\TestsEsQu")->findBy(array("id_test" => $test));
+					foreach ($questions as $key => $value)
+					{
+						$questionsList .= $value->getIdquestion().',';
+					}
 				}
 
 			}elseif($typeTest == 3)
 			{
-
+				$questions = $this->doctrine->default->getRepository("Entities\\Evaluacionrespuesta")->getResponseNoOk($this->id_alumno[0],$this->maxPreguntas[0]);
+				foreach ($questions as $key => $value)
+				{
+					$questionsList .= $value.',';
+				}
+				
 			}
 
-			//creamos la variable donde vamos a crear el string separados por una coma con la lista
-			//de todas las preguntas que compondrán el test
-			$questionsList = "";
-
-			foreach ($questions as $key => $value)
-			{
-				$questionsList .= $value->getIdquestion().',';
-			}
 			//eliminamos la última coma del string
 			$questionsList = trim($questionsList, ',');
 
@@ -146,7 +155,16 @@ class Test  extends MX_Controller {
 				//establecemos las propiedades a través de los setters
 				$evaluacionR->setEvaluacionid($evaluacion_);
 				$evaluacionR->setAlumnoid($this->id_alumno[0]);
-				$evaluacionR->setQuestionid($value->getIdquestion());
+
+				if($typeTest == 1 OR $typeTest == 3)
+				{
+					$evaluacionR->setQuestionid($value);
+
+				}elseif($typeTest == 2)
+				{
+					$evaluacionR->setQuestionid($value->getIdquestion());
+
+				}
 				//y guardamos la entidad en su tabla
 				$this->doctrine->default->persist($evaluacionR);
 				$this->doctrine->default->flush();

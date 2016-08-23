@@ -221,4 +221,15 @@ class Evaluacion extends \Entities\Evaluacion implements \Doctrine\ORM\Proxy\Pro
         return parent::getEvaluacionrespuestas();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setTestid($testid)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setTestid', [$testid]);
+
+        return parent::setTestid($testid);
+    }
+
 }

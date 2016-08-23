@@ -6,6 +6,7 @@ var TestActions = {
 
 	      var type = $(this).val();
         $('input[name="param1"]').val($(this).val());
+				$('.typeQ:checked').prop('checked', false);
 
         if(type == 1 || type == 3){
 
@@ -75,6 +76,17 @@ var TestActions = {
 
   },
 
+	Test : function(){
+
+		$('.id_test').change(function(){
+
+				$('input[name="param4"]').val($(this).val());
+				$("#gTest").show();
+
+		});
+
+  },
+
   GeneratedTest : function(){
 
     $('#gTest').click(function(){
@@ -82,10 +94,11 @@ var TestActions = {
       var param1 = $('input[name="param1"]').val();
       var param2 = $('input[name="param2"]').val();
 			var param3 = $('input[name="param3"]').val();
+			var param4 = $('input[name="param4"]').val();
 
       var type = 'POST';
       var url = site_url+'/test/generated';
-    	var data = {'param1':param1,'param2':param2};
+    	var data = {'param1':param1,'param2':param2,'param3':param3,'param4':param4};
 			var returndata = ActionAjax(type,url,data,null,null,true,false);
 			window.location = returndata;
 
@@ -155,5 +168,6 @@ $(window).load(TestActions.TipoTest);
 $(window).load(TestActions.GeneratedTest);
 $(window).load(TestActions.TipoQt);
 $(window).load(TestActions.Theme);
+$(window).load(TestActions.Test);
 $(window).load(TestActions.GetResponse);
 $(window).load(TestActions.EndTest);
